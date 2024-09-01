@@ -1,2 +1,2 @@
-# PySimpleGUI_test
-PySimpleGUI_test
+# Python GUI test
+Python の各GUIのテストをする
