@@ -1,9 +1,4 @@
-pandas
-numpy
-matplotlib
 ipykernel
-jupyter
 nbconvert
-tkcalendar
-# PySimpleGUI
-tkeasygui
+PySimpleGUI
+pyautogui
