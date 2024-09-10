@@ -5,15 +5,24 @@
 # - PySimpleGUI を使って時計ウィジェットを作成
 # - フォント選択設定 [フォント選択設定 PySimpleGUI-github](https://github.com/PySimpleGUI/PySimpleGUI/blob/master/DemoPrograms/Demo_Font_Previewer.py)
 
-# In[1]:
+# In[6]:
 
+
+#!/usr/bin/env python
+# coding: utf-8
 
 import PySimpleGUI as sg
 from datetime import datetime
 from pyautogui import size
+import platform # add chatGPT
 
-
-# fonts = sg.Text.fonts_installed_list()
+# OSごとの時間・日付フォーマットの設定
+if platform.system() == 'Windows':
+    time_format = "%#H:%M:%S"
+    date_format = "%#Y/%#m/%#d"
+else:
+    time_format = "%H:%M:%S"
+    date_format = "%Y/%m/%d"
 
 layout = [
     [
@@ -31,18 +40,11 @@ layout = [
             key="-date-",
         ),
     ],
-    # [
-    #     sg.Listbox(
-    #         # fonts,
-    #         size=(30, 20),
-    #         change_submits=True, key='-list-')
-    # ],
 ]
 
 window = sg.Window(
     title="clock",
     layout=layout,
-    # size=(400, 200),
     location=(size()[0] - 370, size()[1] - 380),
     transparent_color=sg.theme_background_color(),
     no_titlebar=True,
@@ -55,13 +57,13 @@ window = sg.Window(
 )
 
 while True:
-    event, values = window.read(timeout=100, timeout_key="-timeout-")
+    event, values = window.read(timeout=1000, timeout_key="-timeout-")
     if event in [sg.WIN_CLOSED, "Exit"]:
         break
     elif event in "-timeout-":
         now = datetime.now()
-        time = now.strftime("%#H:%M:%S")
-        date = now.strftime("%#Y/%#m/%#d")
+        time = now.strftime(time_format)
+        date = now.strftime(date_format)
         weekday = now.strftime("%a")
         window["-time-"].update(time)
         window["-date-"].update(f"{date} {weekday}")
