@@ -69,4 +69,3 @@ while True:
         window["-date-"].update(f"{date} {weekday}")
 
 window.close()
-
